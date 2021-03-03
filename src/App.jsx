@@ -41,7 +41,18 @@ class App extends React.Component {
   sortByPopularity = () => {
     console.log('sort by popularity');
     this.setState({
-      people: this.people.sort((a, b) => (a.popularity > b.popularity ? 1 : -1))
+      people: this.people.sort((a, b) => (a.popularity > b.popularity ? -1 : 1))
+    });
+  };
+
+  removeContact = (e) => {
+    // console.log('remove contact ');
+    // console.log(e.target.id);
+    const index = e.target.id;
+    const newArray = this.people;
+    newArray.splice(index, 1);
+    this.setState({
+      people: newArray
     });
   };
   render() {
@@ -50,25 +61,31 @@ class App extends React.Component {
     return (
       <div className="displayTable">
         <h1>Iron Contacts</h1>
-        <button onClick={this.addRandomContact}>Add random Contact</button>
-        <button onClick={this.sortByName}>Sort by name</button>
-        <button onClick={this.sortByPopularity}>Sort by popularity</button>
+
         <p>
           <span>Picture</span>
           <span>Name</span>
           <span>Popularity</span>
         </p>
 
-        {this.people.map((person) => {
+        {this.people.map((person, index) => {
           return (
-            <TableElement
-              key={person._id}
-              picture={person.pictureUrl}
-              name={person.name}
-              popularity={person.popularity}
-            ></TableElement>
+            <div>
+              <TableElement
+                key={person._id}
+                picture={person.pictureUrl}
+                name={person.name}
+                popularity={person.popularity}
+              ></TableElement>
+              <button onClick={this.removeContact} id={index}>
+                Delete
+              </button>
+            </div>
           );
         })}
+        <button onClick={this.sortByName}>Sort By Name</button>
+        <button onClick={this.sortByPopularity}>Sort by popularity</button>
+        <button onClick={this.addRandomContact}>Add random Contact</button>
       </div>
     );
   }
