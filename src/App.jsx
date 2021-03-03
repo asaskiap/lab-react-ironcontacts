@@ -6,9 +6,11 @@ class TableElement extends React.Component {
   render() {
     return (
       <div className="TableElement">
-        <img src={this.props.picture} alt="coolPic" />
-        <p>{this.props.name}</p>
-        <p>{this.props.popularity}</p>
+        <span>
+          <img src={this.props.picture} alt="coolPic" />
+        </span>
+        <span>{this.props.name}</span>
+        <span>{this.props.popularity}</span>
       </div>
     );
   }
@@ -70,7 +72,7 @@ class App extends React.Component {
 
         {this.people.map((person, index) => {
           return (
-            <div>
+            <div className="tableRow">
               <TableElement
                 key={person._id}
                 picture={person.pictureUrl}
@@ -83,9 +85,11 @@ class App extends React.Component {
             </div>
           );
         })}
-        <button onClick={this.sortByName}>Sort By Name</button>
-        <button onClick={this.sortByPopularity}>Sort by popularity</button>
-        <button onClick={this.addRandomContact}>Add random Contact</button>
+        <div className="buttonBar">
+          <button onClick={this.sortByName}>Sort By Name</button>
+          <button onClick={this.sortByPopularity}>Sort by popularity</button>
+          <button onClick={this.addRandomContact}>Add random Contact</button>
+        </div>
       </div>
     );
   }
